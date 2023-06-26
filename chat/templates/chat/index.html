@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+	<div class="row p-4">
+		<div class="col-12 col-md-6 my-4">
+			<h1 class="display-1"><img src="{% static 'images/logo-white.svg' %}" alt="Logo"> Sparking Better Conversations</h1>
+			<p>Welcome to ParleyPoint, a unique platform designed to elevate your online conversations.<br>Engage in intellectual debates, share your insights, and discover new perspectives.</p>
+			<button class="btn btn-primary">TRY FOR FREE</button>
+		</div>
+		<div class="col-12 col-md-6 my-4">
+			<img src="{% static 'images/home.jpg' %}" alt="Logo">
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row p-4">
+		<div class="col-12 col-md-4">
+			<div class="position-relative py-2 text-center ">
+				<img src="{% static 'images/talk.svg' %}" height="30" alt="talk">
+			</div>
+			<h3>Dive Into Diverse Discussions</h3>
+			<p>Explore a vast range of topics, from technology to lifestyle, from sports to science. There's a conversation waiting for you in every corner of ParleyPoint.</p>
+		</div>
+		<div class="col-12 col-md-4">
+			<div class="position-relative py-2 text-center ">
+				<img src="{% static 'images/people.svg' %}" height="30" alt="talk">
+			</div>
+			<h3>Connect with Great People</h3>
+			<p>Join communities of thinkers and learners who share your interests. Make new connections, collaborate, and broaden your horizons.</p>
+		</div>
+		<div class="col-12 col-md-4">
+			<div class="position-relative py-2 text-center ">
+				<img src="{% static 'images/share.svg' %}" height="30" alt="talk">
+			</div>
+			<h3>Share Your Unique Perspective</h3>
+			<p>Don't just join the conversation, lead it. ParleyPoint empowers you to voice your opinions and share your unique viewpoint with the world.</p>
+		</div>
+	</div>
+	
+	
+	<div class="bg-gradiente p-4 rounded-5 my-4 text-center">
+		<h3 class="display-6 mt-4">Ready to join the conversation?<br>Register today and start your journey with ParleyPoint.</h3>
+		<button class="btn btn-primary m-4">JOIN NOW</button>
+	</div>
+	
+	
+	
+<div class="spacer"></div>	
+</div>
+{% endblock %}

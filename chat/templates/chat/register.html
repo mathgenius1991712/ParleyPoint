@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+	<div class="spacer"></div>
+	<div class="col-12 col-md-6 mx-auto p-4 m-4 bg-gradiente rounded-4">
+	<h2>Register</h2>
+    <form method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          <input class="form-control mb-3 {% if field.errors %}is-invalid{% endif %}" id="{{ field.id_for_label }}" type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" value="{{ field.value|default:'' }}" />
+          {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button class="btn btn-primary my-3" type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+	</div>
+	
+</div>
+<div class="spacer"></div>
+{% endblock %}

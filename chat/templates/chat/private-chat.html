@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+  <div class="private-chat-container">
+    <h1>Private Chat with {{ recipient }}</h1>
+
+    <div id="private-chat-messages">
+      <!-- Messages will be appended here by JavaScript -->
+    </div>
+
+    <form id="messageForm">
+      <input id="privateinput" type="text" placeholder="Type a message...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+<div id="username" data-username="{{ user.username }}"></div>
+<div id="recipient" data-recipient="{{ recipient }}"></div>
+
+  <!-- Include your JavaScript file here -->
+  <script src="{% static 'js/private.js' %}"></script>
+  <script src="{% static 'js/notifications.js' %}"></script>
+{% endblock %}

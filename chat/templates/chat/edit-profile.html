@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="col-12 col-md-4 mx-auto p-4 m-4 bg-gradiente rounded-4">
+        <h2>Edit Profile</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button class="btn btn-primary mb-4" type="submit">Save changes</button>
+        </form>
+        <p>Raw passwords are not stored, so there is no way to see this user’s password, but you can change the password using this form<br>
+            <a href="{% url 'change_password' username=user.username %}">Change password</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
