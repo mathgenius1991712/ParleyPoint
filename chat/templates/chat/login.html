@@ -12,20 +12,20 @@
         {% endfor %}
     </ul>
 {% endif %}
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="id_username">Username</label>
-                    <input type="text" name="username" maxlength="150" class="form-control mb-3" required id="id_username" autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="id_password">Password</label>
-                    <input type="password" name="password" class="form-control mb-3" required id="id_password">
-                </div>
-                <button type="submit" class="btn btn-primary mb-3">Login</button>
-            </form>
-            <a href="{% url 'register' %}">Don't have an account? Register here.</a>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_username">Username</label>
+            <input type="text" name="username" maxlength="150" class="form-control mb-3" required id="id_username" autofocus>
         </div>
+        <div class="form-group">
+            <label for="id_password">Password</label>
+            <input type="password" name="password" class="form-control mb-3" required id="id_password">
+        </div>
+        <button type="submit" class="btn btn-primary mb-3">Login</button>
+    </form>
+    <a href="{% url 'register' %}">Don't have an account? Register here.</a>
+</div>
 
 </div>
 {% endblock %}

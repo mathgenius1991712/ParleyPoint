@@ -21,9 +21,11 @@ def index(request):
     return render(request, 'chat/index.html')
     
 def register(request):
+    print("register requiest")
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
+            print("form is valid")
             user = form.save()  # Save the User and get a reference to the instance
             Profile.objects.create(user=user)  # Create a Profile for the User
             username = form.cleaned_data.get('username')
@@ -44,6 +46,7 @@ def register(request):
 
 @login_required  
 def global_chat(request):
+    print("global_chat")
     messages = GlobalChatMessage.objects.all()
     users = User.objects.all()
     notifications = request.user.notifications.filter(read=False)
