@@ -1,2 +1,4 @@
 /env/
 parameters.txt
+/ParleyPoint/__pycache__/
+/chat/__pycache__/
