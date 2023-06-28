@@ -11,24 +11,7 @@
     <p>@{{ user.username }}</p>
        
 {% with sorted_usernames=sorted_usernames %}
-    <button id="start-chat-button" class="btn btn-primary">Chat with me!</button>
-    <script>
-        var username = "{{ request.user.username }}";
-        var notificationSocket = new WebSocket('ws://localhost:8000/ws/notifications_' + username + '/');
-
-        document.getElementById('start-chat-button').addEventListener('click', function() {
-            // This is the username of the other user that the user wants to chat with.
-            // Replace this with the actual username.
-            var otherUsername = "{{ user.username }}";
-            var senderUsername = username;  // Use the username variable defined above
-            var message = {
-                type: 'start_chat',
-                other_user: otherUsername,
-                from: senderUsername  // And this line
-            };
-            notificationSocket.send(JSON.stringify(message));
-        });
-    </script>
+    <a id="start-chat-button" class="btn btn-primary" href="{% url 'private_chat' request.user.username user.username %}">Chat with me!</a>
 {% endwith %}
 
 

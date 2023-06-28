@@ -8,9 +8,10 @@
       <div class="chat-list">
         <h2>Chat list</h2>
         <ul>
-        {% if chat_room.other_participant %}
-        <li> <a href="{% url 'private_chat' username1=request.user.username username2=chat_room.other_participant.username %}">hello</a></li>
-        {% endif %}
+          <li> <a href="{% url 'global_chat' %}">Global Chat</a></li>
+          {% if chat_room.other_participant %}
+          <li> <a href="{% url 'private_chat' username1=request.user.username username2=chat_room.other_participant.username %}">hello</a></li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -101,39 +102,5 @@
     var username = "{{ user.username }}";
   </script>
   <script src="{% static 'js/app.js' %}"></script>
-  <!--script src="{% static 'js/notifications.js' %}"-->
-	  <script>
-//let username = "{{ user.username }}"; 
-//var notificationSocket = new WebSocket('ws://localhost:8000/ws/notifications_${username}/');
-
-let notificationSocket = new WebSocket(`ws://localhost:8000/ws/notifications_${username}/`);
-
-notificationSocket.onopen = function(e) {
-    console.log("Connection opened");
-};
-notificationSocket.onmessage = function(e) {
-    var data = JSON.parse(e.data);
-    console.log('Data:', data);
-    console.log('Data type:', data.type);
-    console.log('Data from:', data.from);
-    if (data.type === 'chat.request_message') { // Change 'chat.request' to 'chat.request_message'
-        var notificationDiv = document.querySelector('#notifications');
-        var link = document.createElement('a');
-        link.href = '/chat/' + data.from;
-        link.textContent = data.message;
-        notificationDiv.appendChild(link);
-        notificationDiv.innerHTML += '<br>';
-    }
-};
-
-notificationSocket.onerror = function(error) {
-    console.error("WebSocket Error: ", error);
-};
-
-notificationSocket.onclose = function(event) {
-    console.log("WebSocket Closed: ", event);
-};
- 
-	  
-  </script>
+  <script src="{% static 'js/notifications.js' %}"></script>
 {% endblock %}

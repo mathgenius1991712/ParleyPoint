@@ -1,8 +1,8 @@
 let username = document.querySelector('#username').dataset.username;
-console.log(username);
+console.log("private  "+username);
 let recipient = document.querySelector('#recipient').dataset.recipient;
-console.log(recipient);
-var notificationSocket = new WebSocket('ws://localhost:8000/ws/notifications/');
+console.log("private "+recipient);
+var notificationSocket = new WebSocket(`ws://localhost:8000/ws/notifications/${username}/`);
 
 // Connect to the appropriate WebSocket for private chat with the recipient
 var chatSocket = new WebSocket(`ws://localhost:8000/ws/private_chat/${recipient}/`);

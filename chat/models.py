@@ -56,7 +56,8 @@ class Notification(models.Model):
         data = {
             "type": "send_notification",
             "message": self.message,
-            "username": self.recipient.username
+            "username": self.sender.username
         }
-        async_to_sync(channel_layer.group_send)("notifications", data)
+        group_name = f'notifications_{self.recipient.username}'
+        async_to_sync(channel_layer.group_send)(group_name, data)
         super().save(*args, **kwargs)

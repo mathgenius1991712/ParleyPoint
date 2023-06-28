@@ -66,7 +66,7 @@ def global_chat(request):
         'notifications': sorted_notifications,
         'chat_rooms': chat_rooms
     })
-
+ 
 
 @login_required
 def private_chat(request, username1, username2):
@@ -83,7 +83,8 @@ def private_chat(request, username1, username2):
     # Find a ChatRoom that contains exactly these two users
     chat_room = ChatRoom.objects.filter(participants__in=[user1, user2])
     
-    if chat_room.exists():
+    if False:
+    # if chat_room.exists():
         # If the chat room exists, take the first one. 
         # This line assumes that there will be only one chat room for each pair of users.
         chat_room = chat_room.first()
@@ -100,18 +101,18 @@ def private_chat(request, username1, username2):
         )
 
         # Send a notification to the other user
-        channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.group_send)(
-            f"notifications_{other_user.username}",
-            {
-                "type": "new_notification",
-                "notification": {
-                    "id": notification.id,
-                    "message": notification.message,
-                    # other necessary fields...
-                },
-            },
-        )
+        # channel_layer = get_channel_layer()
+        # async_to_sync(channel_layer.group_send)(
+        #     f"notifications_{other_user.username}",
+        #     {
+        #         "type": "new_notification",
+        #         "notification": {
+        #             "id": notification.id,
+        #             "message": notification.message,
+        #             # other necessary fields...
+        #         },
+        #     },
+        # )
         
     # Fetch all messages in this chat room
     chat_messages = ChatMessage.objects.filter(room=chat_room).order_by('timestamp')
@@ -203,3 +204,15 @@ def send_message(request):
     }
     
     return render(request, 'chat/chat_room.html', context)
+
+
+@login_required
+def start_chat(request, username):
+    if request.method == 'POST':
+        #todo:
+        # Save Notification
+        # Create ChatRoom
+        # redirect chat
+        return redirect('user_profile', username=request.user.username)
+    
+    

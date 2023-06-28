@@ -9,6 +9,7 @@ from asgiref.sync import async_to_sync
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        print("connection established")
         self.user = self.scope["user"]
         self.room_name = f'user_{self.user.username}'  # create a unique room name for each user
 
@@ -127,64 +128,13 @@ class PrivateChatConsumer(AsyncWebsocketConsumer):
             'message': message,
             'username': username
         }))
-'''
-class NotificationConsumer(AsyncWebsocketConsumer):
-    async def connect(self):
-        self.group_name = f'notifications_{self.scope["user"].username}'
-        
-        await self.channel_layer.group_add(
-            self.group_name,
-            self.channel_name
-        )
-
-        await self.accept()
-
-    async def disconnect(self, close_code):
-        await self.channel_layer.group_discard(
-            self.group_name,
-            self.channel_name
-        )
-
-    async def receive(self, text_data):
-        data = json.loads(text_data)
-        message = ""
-        if data['type'] == 'start_chat':
-            print(f"data is start_chat")
-            other_user_username = data['other_user']
-            print(other_user_username)
-            sender_username = data['from']
-            print(sender_username)
-
-            await self.channel_layer.group_send(
-                f'notifications_{other_user_username}',
-                 {
-                    'type': 'chat.request_message',
-                    'from': sender_username,
-                    'message': f"{sender_username} has started a chat with you."
-                }
-            )
-            print(f"Sending message: {message}")
-            await self.channel_layer.group_send(
-                self.group_name,
-                 {
-                    'type': 'chat.request_message',
-                    'from': sender_username,
-                    'message': f"{sender_username} has started a chat with you now."
-                }
-            )
-            print(f"Sending message: {message} from second await")            
-
-    async def chat_request_message(self, event):
-        # Send message to WebSocket
-        await self.send(text_data=json.dumps(event))
-        '''
-        
+      
         
 class NotificationConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        print("Attempting to connect")
+        print("Attempting to connect Notification")
         self.group_name = f'notifications_{self.scope["user"].username}'
-        print(f"Connecting to group: {self.group_name}")
+        print(f"Connecting to notification group: {self.group_name}")
         await self.channel_layer.group_add(
             self.group_name,
             self.channel_name
@@ -213,13 +163,18 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
             await self.channel_layer.group_send(
                 f'notifications_{other_user_username}',
-                 {
+                {
                     'type': 'chat.request_message',
                     'from': sender_username,
                     'message': message
                 }
             )
             print(f"Sending message: {message} to group: notifications_{other_user_username}")
+
+    async def send_notification(self, event):
+        print(f"Handling notification group message: {event}")
+        # Send message to WebSocket
+        await self.send(text_data=json.dumps(event))
 
     async def chat_request_message(self, event):
         print(f"Handling group message: {event}")

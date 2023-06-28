@@ -12,6 +12,8 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 import chat.routing
 
+from channels.staticfiles import StaticFilesWrapper
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ParleyPoint.settings')
 
 
@@ -24,3 +26,4 @@ application = ProtocolTypeRouter({
     ),
 })
 
+application = StaticFilesWrapper(application)

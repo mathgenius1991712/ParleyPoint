@@ -4,7 +4,6 @@ $(function() {
     socket.withCredentials = true;
 
 
-//var notificationSocket = new WebSocket('ws://localhost:8000/ws/notifications/');
 
 socket.onopen = function(e) {
   //  alert("[open] Connection established");
